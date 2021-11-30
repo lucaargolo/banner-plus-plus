@@ -25,8 +25,6 @@ import net.minecraft.util.math.BlockPos;
 public abstract class BannerBlockEntityClientMixin extends BlockEntity implements LoomPatternContainer {
 	@Shadow
 	private List<?> patterns;
-	@Shadow
-	private boolean patternListTagRead;
 
 	@Unique
 	private List<LoomPatternData> loomPatterns = Collections.emptyList();
@@ -37,7 +35,7 @@ public abstract class BannerBlockEntityClientMixin extends BlockEntity implement
 
 	@Override
 	public List<LoomPatternData> bannerpp_getLoomPatterns() {
-		if (this.patterns == null && this.patternListTagRead) {
+		if (this.patterns == null) {
 			NbtList tag = ((LoomPatternContainer.Internal) this).bannerpp_getLoomPatternTag();
 			loomPatterns = LoomPatternConversions.makeLoomPatternData(tag);
 		}
@@ -62,7 +60,7 @@ public abstract class BannerBlockEntityClientMixin extends BlockEntity implement
 		NbtList tag = ((Internal) this).bannerpp_getLoomPatternTag();
 
 		if (tag != null) {
-			stack.getOrCreateSubTag("BlockEntityTag")
+			stack.getOrCreateSubNbt("BlockEntityTag")
 					.put(NBT_KEY, tag);
 		}
 	}

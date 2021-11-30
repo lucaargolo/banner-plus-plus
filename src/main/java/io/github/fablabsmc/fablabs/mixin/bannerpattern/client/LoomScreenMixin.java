@@ -12,6 +12,8 @@ import io.github.fablabsmc.fablabs.impl.bannerpattern.LoomPatternData;
 import io.github.fablabsmc.fablabs.impl.bannerpattern.LoomPatternRenderContext;
 import io.github.fablabsmc.fablabs.impl.bannerpattern.LoomPatternsInternal;
 import io.github.fablabsmc.fablabs.impl.bannerpattern.iface.LoomPatternContainer;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.Text;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -55,7 +57,6 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
 	 * Adds the number of rows corresponding to Banner++ loom patterns
 	 * to the loom GUI.
 	 */
-	@SuppressWarnings("UnresolvedMixinReference")
 	@Redirect(
 			method = "<clinit>",
 			at = @At(
@@ -140,7 +141,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
 	 * a Banner++ loom pattern (which is negative).
 	 */
 	@ModifyVariable(
-			method = "method_22692",
+			method = "drawBanner",
 			at = @At(value = "LOAD", ordinal = 0),
 			ordinal = 0
 	)
@@ -162,7 +163,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
 	 * pattern in the item NBT instead of a vanilla pattern.
 	 */
 	@Redirect(
-			method = "method_22692",
+			method = "drawBanner",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/nbt/NbtCompound;put(Ljava/lang/String;Lnet/minecraft/nbt/NbtElement;)Lnet/minecraft/nbt/NbtElement;",
@@ -212,7 +213,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
 			method = "drawBackground",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/screen/ingame/LoomScreen;method_22692(III)V",
+					target = "Lnet/minecraft/client/gui/screen/ingame/LoomScreen;drawBanner(III)V",
 					ordinal = 0
 			),
 			index = 0

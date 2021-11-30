@@ -24,7 +24,7 @@ public final class LoomPatternConversions {
 	 * @return the loom pattern tag, or null if it is not present.
 	 */
 	public static NbtList getLoomPatternTag(ItemStack stack) {
-		NbtCompound tag = stack.getSubTag("BlockEntityTag");
+		NbtCompound tag = stack.getSubNbt("BlockEntityTag");
 
 		if (tag != null && tag.contains(LoomPatternContainer.NBT_KEY, 9)) {
 			return tag.getList(LoomPatternContainer.NBT_KEY, 10);

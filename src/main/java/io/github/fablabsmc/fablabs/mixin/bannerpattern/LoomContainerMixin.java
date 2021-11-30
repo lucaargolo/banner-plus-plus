@@ -6,19 +6,6 @@ import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
 import io.github.fablabsmc.fablabs.api.bannerpattern.v1.PatternLimitModifier;
 import io.github.fablabsmc.fablabs.impl.bannerpattern.LoomPatternsInternal;
 import io.github.fablabsmc.fablabs.impl.bannerpattern.iface.LoomPatternContainer;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,6 +20,13 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.DyeColor;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LoomScreenHandler.class)
 public abstract class LoomContainerMixin extends ScreenHandler {
@@ -197,7 +191,7 @@ public abstract class LoomContainerMixin extends ScreenHandler {
 				DyeColor color = ((DyeItem) dyeStack.getItem()).getColor();
 				ItemStack output = bannerStack.copy();
 				output.setCount(1);
-				NbtCompound beTag = output.getOrCreateSubTag("BlockEntityTag");
+				NbtCompound beTag = output.getOrCreateSubNbt("BlockEntityTag");
 				NbtList loomPatterns;
 
 				if (beTag.contains(LoomPatternContainer.NBT_KEY, 9)) {
