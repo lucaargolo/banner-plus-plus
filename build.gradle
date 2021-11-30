@@ -3,7 +3,6 @@ plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 	id "com.jfrog.artifactory" version "4.21.0"
-	id "checkstyle"
 }
 
 repositories {
@@ -105,7 +104,7 @@ publishing {
 	// select the repositories you want to publish to
 	repositories {
 		// uncomment to publish to the local maven
-		// mavenLocal()
+		mavenLocal()
 	}
 }
 
