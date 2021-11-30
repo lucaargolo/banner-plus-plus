@@ -39,11 +39,6 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 }
 
-checkstyle {
-	configFile = rootProject.file("checkstyle.xml")
-	toolVersion = '8.43'
-}
-
 processResources {
 	inputs.property "version", project.version
 	exclude "**/*.xcf"
